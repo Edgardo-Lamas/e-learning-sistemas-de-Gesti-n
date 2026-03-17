@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plataforma E-Learning: Introducción a los Sistemas de Gestión — Comunidad Educativa Juana Manso" />
+  <title>E-Learning · Sistemas de Gestión</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       PANTALLA DE LOGIN
+  ============================================================ -->
+  <div id="login-screen">
+    <div class="login-card">
+      <span class="login-icon">🖥️</span>
+      <h1>Introducción a los<br>Sistemas de Gestión</h1>
+      <p class="subtitle">Comunidad Educativa Juana Manso · Unidad N°9<br>Código FP-SG-001 · 4 módulos · 16 clases</p>
+
+      <form class="login-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="nombre-alumno">Tu nombre completo</label>
+          <input
+            type="text"
+            id="nombre-alumno"
+            placeholder="Ejemplo: Juan Pérez"
+            autocomplete="name"
+            autofocus
+          />
+        </div>
+        <button class="btn-primary" id="btn-login">
+          Comenzar el curso →
+        </button>
+      </form>
+
+      <div class="login-info">
+        <div class="info-item">
+          <span>💾</span>
+          <span>Tu progreso se guarda automáticamente</span>
+        </div>
+        <div class="info-item">
+          <span>🔓</span>
+          <span>Completá cada cuestionario para desbloquear la siguiente clase</span>
+        </div>
+        <div class="info-item">
+          <span>📊</span>
+          <span>Los resultados se registran para el seguimiento del curso</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       APLICACIÓN PRINCIPAL
+  ============================================================ -->
+  <div id="app">
+
+    <!-- Header sticky -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <h2>Sistemas de Gestión</h2>
+          <span class="course-code">FP-SG-001 · Comunidad Educativa Juana Manso</span>
+        </div>
+
+        <div class="header-center">
+          <div class="progress-bar-container">
+            <div class="progress-bar-label">
+              <span>Progreso general</span>
+              <span id="progress-label">0/16 clases</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="user-badge">
+            <span class="user-icon">👤</span>
+            <span class="user-name" id="user-name"></span>
+          </div>
+          <button class="btn-logout" id="btn-logout">Salir</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="app-main">
+
+      <!-- ============================================================
+           DASHBOARD — VISTA DE MÓDULOS
+      ============================================================ -->
+      <div id="dashboard-view">
+        <div class="dashboard-welcome">
+          <h1>Bienvenido al curso</h1>
+          <p id="welcome-text">Comenzá con la Clase 1 del Módulo 1.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-value" id="stat-completadas">0</span>
+            <span class="stat-label">Clases completadas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-disponibles">1</span>
+            <span class="stat-label">Disponibles ahora</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-total">16</span>
+            <span class="stat-label">Total de clases</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-porcentaje">0%</span>
+            <span class="stat-label">Avance del curso</span>
+          </div>
+        </div>
+
+        <!-- Módulos -->
+        <div class="modulos-grid" id="modulos-container">
+          <!-- Renderizado dinámicamente por app.js -->
+        </div>
+      </div>
+
+      <!-- ============================================================
+           CLASE VIEW — VISTA DE UNA CLASE
+      ============================================================ -->
+      <div id="clase-view">
+
+        <!-- Navegación -->
+        <div class="clase-nav">
+          <button class="btn-back" id="btn-back-dashboard">
+            ← Volver a módulos
+          </button>
+          <span class="clase-breadcrumb" id="breadcrumb-text"></span>
+        </div>
+
+        <!-- Header de la clase -->
+        <div class="clase-header" id="clase-header">
+          <span class="clase-badge"></span>
+          <h1 class="clase-titulo"></h1>
+          <p class="clase-subtitulo-text"></p>
+          <div class="clase-meta">
+            <span class="clase-duracion"></span>
+          </div>
+        </div>
+
+        <!-- Banner de clase ya completada -->
+        <div class="clase-completada-banner" id="clase-completada-banner" style="display:none;">
+          <span>✅</span>
+          <span class="banner-text"></span>
+        </div>
+
+        <!-- Contenido de la clase -->
+        <div class="clase-content" id="clase-contenido">
+          <!-- Renderizado dinámicamente -->
+        </div>
+
+        <!-- Cuestionario -->
+        <div class="cuestionario-container">
+          <div class="cuestionario-header">
+            <span class="cuestionario-icon">📝</span>
+            <div>
+              <h3>Cuestionario de la clase</h3>
+              <p>Respondé todas las preguntas para desbloquear la siguiente clase</p>
+            </div>
+          </div>
+
+          <!-- Preguntas -->
+          <div class="cuestionario-body" id="cuestionario-body">
+            <!-- Renderizado dinámicamente -->
+          </div>
+
+          <!-- Footer con botón enviar -->
+          <div class="cuestionario-footer" id="cuestionario-footer">
+            <span class="cuestionario-progress-text" id="cuestionario-progress-text">
+              0 de 0 preguntas respondidas
+            </span>
+            <button class="btn-submit" id="btn-enviar" disabled>
+              Enviar respuestas →
+            </button>
+          </div>
+
+          <!-- Resultado -->
+          <div class="resultado-container" id="resultado-container" style="display:none;">
+            <span class="resultado-icon" id="resultado-icon">🎉</span>
+            <div class="resultado-titulo" id="resultado-titulo"></div>
+            <div class="resultado-score" id="resultado-score"></div>
+            <p class="resultado-desc" id="resultado-desc"></p>
+            <div class="resultado-actions">
+              <button class="btn-next-clase" id="btn-next-clase">
+                Siguiente clase →
+              </button>
+              <button class="btn-retry" id="btn-retry">
+                Reintentar cuestionario
+              </button>
+              <button class="btn-dashboard" id="btn-go-dashboard">
+                Volver a módulos
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- fin clase-view -->
+
+    </main>
+  </div>
+  <!-- fin #app -->
+
+  <!-- Scripts -->
+  <script src="course-data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
