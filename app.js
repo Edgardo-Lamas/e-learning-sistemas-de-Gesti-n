@@ -4,7 +4,7 @@
 
 // --- CONFIGURACIÓN ---
 // Pegar aquí la URL de tu Google Apps Script desplegado
-const APPS_SCRIPT_URL = '';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8UWT8mowIOS7Gc4RSZ-z2CMBYcmP5dBYPB6daRlBv3RTgqhPkO4n7yTfi7OWj9U_AKA/exec';
 
 // ============================================================
 // ESTADO DE LA APLICACIÓN
