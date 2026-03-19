@@ -1,0 +1,19 @@
+{
+  "name": "Introducción a los Sistemas de Gestión",
+  "short_name": "Sist. Gestión",
+  "description": "Curso FP-SG-001 — 16 clases sobre sistemas de gestión",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#085041",
+  "theme_color": "#085041",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
