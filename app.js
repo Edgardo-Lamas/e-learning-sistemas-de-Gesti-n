@@ -525,16 +525,12 @@ async function enviarAGoogleSheets(clase, resultados, correctas, total, porcenta
       aprobado: porcentaje >= 50
     };
 
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(datos),
-      headers: { 'Content-Type': 'text/plain' }
-    });
+    const url = APPS_SCRIPT_URL + '?data=' + encodeURIComponent(JSON.stringify(datos));
+
+    await fetch(url, { method: 'GET', mode: 'no-cors' });
 
     mostrarToast('📊 Resultados enviados al registro', 'success');
   } catch (error) {
-    // Silencioso — el progreso ya está guardado en localStorage
     console.warn('No se pudo enviar a Google Sheets:', error.message);
   }
 }
