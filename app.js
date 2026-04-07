@@ -1,4 +1,4 @@
-// ============================================================
+coloque e // ============================================================
 // APP.JS — Plataforma E-Learning Sistemas de Gestión
 // ============================================================
 
@@ -326,6 +326,21 @@ function renderizarClase(modulo, clase) {
       <div class="contenido-bloque-body">${bloque.texto}</div>
     </div>
   `).join('');
+
+  // Anexo (imagen + descripción) si existe
+  if (clase.anexo) {
+    const a = clase.anexo;
+    contenidoContainer.innerHTML += `
+      <div class="anexo-bloque">
+        <div class="anexo-header">
+          <span class="anexo-icono">📎</span>
+          <span class="anexo-titulo">${a.titulo}</span>
+        </div>
+        <img class="anexo-imagen" src="${a.imagen}" alt="${a.titulo}" onclick="this.classList.toggle('zoom')" />
+        <div class="anexo-descripcion">${a.descripcion.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/^/, '<p>').replace(/$/, '</p>')}</div>
+      </div>
+    `;
+  }
 
   // Cuestionario
   renderizarCuestionario(clase);
