@@ -3,7 +3,7 @@
 // Permite usar la app sin conexión a internet
 // ============================================================
 
-const CACHE_NAME = 'sg-elearning-v1';
+const CACHE_NAME = 'sg-elearning-v2';
 
 const ARCHIVOS_CACHE = [
   './',
