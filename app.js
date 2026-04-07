@@ -337,7 +337,15 @@ function renderizarClase(modulo, clase) {
           <span class="anexo-titulo">${a.titulo}</span>
         </div>
         <img class="anexo-imagen" src="${a.imagen}" alt="${a.titulo}" onclick="this.classList.toggle('zoom')" />
-        <div class="anexo-descripcion">${a.descripcion.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/^/, '<p>').replace(/$/, '</p>')}</div>
+        <div class="anexo-descripcion">${
+          a.descripcion
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/^/, '<p>')
+            .replace(/$/, '</p>')
+            .replace(/<p>(1\. ENTRADA|2\. PROCESO|3\. SALIDA|Relación con los Sistemas de Gestión)<\/p>/g, '<p class="anexo-seccion">$1</p>')
+            .replace(/<p>(a\)|b\)|c\)|d\)|e\))/g, '<p class="anexo-item">$1')
+        }</div>
       </div>
     `;
   }

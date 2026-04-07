@@ -1126,3 +1126,23 @@ body {
 .anexo-descripcion p:last-child {
   margin-bottom: 0;
 }
+
+.anexo-descripcion .anexo-seccion {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ef9f27;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 1.4rem 0 0.5rem 0;
+  padding: 0.4rem 0.8rem;
+  border-left: 3px solid #ef9f27;
+  background: rgba(239, 159, 123, 0.08);
+  border-radius: 0 6px 6px 0;
+}
+
+.anexo-descripcion .anexo-item {
+  padding-left: 1rem;
+  border-left: 2px solid rgba(93, 202, 165, 0.3);
+  margin-left: 0.5rem;
+  color: var(--text-primary);
+}
