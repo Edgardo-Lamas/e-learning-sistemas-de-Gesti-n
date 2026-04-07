@@ -3,19 +3,23 @@
 // Permite usar la app sin conexión a internet
 // ============================================================
 
-const CACHE_NAME = 'sg-elearning-v2';
+const CACHE_NAME = 'sg-elearning-v3';
 
+// Solo se cachean archivos estáticos que no cambian seguido
 const ARCHIVOS_CACHE = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './course-data.js',
   './icon.svg',
   './manifest.json'
 ];
 
-// Instalación: guardar todos los archivos en caché
+// Archivos JS/CSS: siempre red primero, caché como respaldo offline
+const ARCHIVOS_RED_PRIMERO = [
+  'app.js',
+  'course-data.js',
+  'styles.css',
+  'index.html'
+];
+
+// Instalación
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -37,10 +41,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: responder desde caché si no hay internet
+// Fetch
 self.addEventListener('fetch', event => {
-  // Las llamadas a Google Sheets siempre van por red (no se cachean)
-  if (event.request.url.includes('script.google.com')) {
+  const url = event.request.url;
+
+  // Google Sheets: siempre por red
+  if (url.includes('script.google.com')) {
     event.respondWith(
       fetch(event.request).catch(() => new Response('{}', {
         headers: { 'Content-Type': 'application/json' }
@@ -49,14 +55,29 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Para todo lo demás: caché primero, red como respaldo
+  // JS, CSS, HTML: red primero — si falla (sin internet) usa caché
+  const esArchivoApp = ARCHIVOS_RED_PRIMERO.some(f => url.includes(f));
+  if (esArchivoApp) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Actualizar caché con la versión nueva
+          const copia = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copia));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Imágenes y resto: caché primero
   event.respondWith(
     caches.match(event.request)
       .then(cached => {
         if (cached) return cached;
         return fetch(event.request).then(response => {
-          // Guardar en caché si es una respuesta válida
-          if (response && response.status === 200 && response.type === 'basic') {
+          if (response && response.status === 200) {
             const copia = response.clone();
             caches.open(CACHE_NAME).then(cache => cache.put(event.request, copia));
           }
